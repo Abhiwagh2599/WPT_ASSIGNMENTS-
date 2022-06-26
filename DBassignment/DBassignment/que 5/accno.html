@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
+    <script>
+        $(() => {
+
+            $("#accno").blur(() => {
+                let accnon = $("#accno").val();
+                console.log("blur hua");
+                let ajaxparams = {
+                    data: { accno: accnon },
+                    url: "http://localhost:990/getBal",
+                    type: 'get',
+                    dataType: "json",
+                    success: (output) => {
+                        console.log(output + "output aya");
+
+                        if (output.status) {
+                            $("#bal").text(output.itemdetails.bal);
+                        }
+                        else {
+                            $("#bal").text("Not Found");
+
+                        }
+                    },
+                    error: (error) => { console.log("failure") }
+                };
+                $.ajax(ajaxparams);
+
+            });
+
+
+
+
+        });
+    </script>
+</head>
+
+<body>
+    <input type="text" id="accno" placeholder="Account Number">
+    <span id="bal">Balance will appear here</span>
+</body>
+
+</html>

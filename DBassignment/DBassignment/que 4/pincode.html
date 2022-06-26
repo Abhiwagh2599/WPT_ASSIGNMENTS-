@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
+    <script>
+        $(() => {
+
+            $("#pin").blur(() => {
+                let pinn = $("#pin").val();
+                console.log("blur hua");
+                let ajaxparams = {
+                    data: { pin: pinn },
+                    url: "http://localhost:990/getPin",
+                    type: 'get',
+                    dataType: "json",
+                    success: (output) => {
+                        console.log(output + "output aya");
+
+                        if (output.status) {
+                            $("#area").text(output.itemdetails.area);
+                        }
+                        else {
+                            $("#area").text("Not Found");
+
+                        }
+                    },
+                    error: (error) => { console.log("failure") }
+                };
+                $.ajax(ajaxparams);
+
+            });
+
+
+
+
+        });
+    </script>
+</head>
+
+<body>
+    <input type="text" id="pin" placeholder="Pin-Code">
+    <span id="area">Area will appear here</span>
+</body>
+
+</html>
